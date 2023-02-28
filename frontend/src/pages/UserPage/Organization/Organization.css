@@ -1,0 +1,170 @@
+
+
+/* userModal */
+
+.userIn{
+
+  border: 1px solid #999;
+
+  height: 100%;
+
+  /* margin-top : 1%;
+  margin-left: 1%; */
+
+  /* margin-bottom: 1%; */
+
+  float: left;
+}
+
+
+
+#usualLeft{
+
+  width: 35%;
+
+}
+
+
+
+#usualRight{
+
+  width: 65%;
+}
+
+
+
+
+
+/* =========================================================================== */
+
+/* 아래는 adminModal */
+
+/* =========================================================================== */
+
+
+
+/* 모달 상하단 패딩은 나중에 지워주면 됩니다 */
+
+/* 모달 상단 */
+#org-modalupper{
+  border: 1px solid #999;
+  width: 98%;
+  height: 51%;
+
+
+  margin-top : 1%;
+  margin-left: 1%;
+
+  
+}
+
+
+/* 모달 상단 내부 */
+
+.org-modalUpperIn {
+  border: 1px solid #999;
+
+  height: 100%;
+
+  /* margin-top : 1%;
+  margin-left: 1%; */
+
+  /* margin-bottom: 1%; */
+
+  float: left;
+}
+
+/* 모달 상단 좌 */
+#org-modalupperLeft {
+  border: 1px solid blue;
+
+  width: 35%;
+  padding: 2%;
+
+}
+
+/* 모달 상단 우 */
+#org-modalupperRight {
+  border: 1px solid red;
+
+  width: 65%;
+
+}
+
+
+
+/* 모달 하단 */
+
+#org-modallower{
+  border: 1px solid #999;
+
+  width: 98%;
+  height: 44%;
+
+
+  margin-top : 2%;
+  margin-left: 1%;
+
+  /* margin-bottom: 1%; */
+}
+
+
+/* 모달 하단 내부 */
+.org-modalLowerIn {
+  border: 1px solid #999;
+
+  height: 100%;
+
+  /* margin-top : 1%;
+  margin-left: 1%; */
+
+  /* margin-bottom: 1%; */
+
+  float: left;
+}
+
+
+
+/* <div style={{width:'100%',padding:'30%', border: '1px solid red'}}> */
+
+
+
+
+.orgDepartment {
+
+  /* border: 1px solid green;
+  border-radius: 15px; */
+  
+  width: 30.3%;
+  height: 400px;
+  
+  margin: 1% 1.5%;
+
+  /* box-shadow: 1px 1px 3px 1px #dadce0; */
+  
+
+  float: left;
+}
+
+
+
+
+
+#listItem {
+
+  /* border: 1px solid green; */
+  background-color: white;
+  height: 86%;
+  overflow: auto;
+  -ms-overflow-style: none;
+  border-radius: 10px;
+  border: 2px #0E7EEE solid;
+  box-shadow: 5px 10px 1px 1px lightgrey;
+  
+}
+
+#listItem::-webkit-scrollbar{
+  display:none;
+}
+
+

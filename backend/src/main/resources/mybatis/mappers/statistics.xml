@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="statistics">
+
+
+	<select id="countContract" parameterType="map" resultType="map">
+	<![CDATA[
+	  select count(*) as contract, (  select count(*)
+										from time_dimension
+									   where year = #{year }
+										 and month = #{month }) as days
+	    from time_dimension
+	   where year = #{year }
+	     and month = #{month }
+	     and day_name not in ("Saturday","sunday");
+	]]>
+	</select>
+	
+	
+	<select id="workCount" parameterType="map" resultType="Long">
+	<![CDATA[
+	  select count(*)
+	    from attendance a, employees b 
+	   where a.employees_no = b.no
+		 and b.no = 1
+	     and a.inout_day like concat("%",#{year } ,"-" ,#{month } ,"%");
+	]]>
+	</select>
+	
+	
+	<select id="getWorkHours" parameterType="map" resultType="map">
+	<![CDATA[
+	  select SUBSTRING(db_date,6,2) as inOutDay, ifnull(sum(bfworkHours),0) as bfworkHours, ifnull(sum(afworkHours),0) as afworkHours 
+	    from time_dimension a left join (  select a.inout_day as inOutDay, 
+												  TIMESTAMPDIFF(hour, a.in_time, concat(date_format(a.out_time, '%Y-%c-%d'), ' 18:05:00')) as bfworkHours,
+	                                              TIMESTAMPDIFF(hour, concat(date_format(a.in_time, '%Y-%c-%d'), ' 18:05:00'), a.out_time) as afworkHours
+										     from attendance a, employees b 
+									        where a.employees_no = b.no
+										      and b.no = 1
+										      and a.in_time like concat("%",#{year } ,"-" ,#{month } ,"%")) as b
+		  on a.db_date = b.inOutDay
+	   where year = #{year } 
+	     and month = #{month }
+	group by db_date;
+	]]>
+	</select>
+	
+	
+	<select id="getAvg" parameterType="map" resultType="map">
+	<![CDATA[
+  		select avg(a.workHours) as workHours
+    	  from (  select a.inout_day, TIMESTAMPDIFF(hour, a.in_time, concat(date_format(a.out_time, '%Y-%c-%d'), ' 18:05:00')) as workHours
+				    from attendance a, employees b 
+			       where a.employees_no = b.no
+				     and b.no = #{no }
+				     and a.in_time like concat("%","2022","-","08","%")) as a; 
+		]]>
+	</select>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<select id="searchByTitle" parameterType="String" resultType="boardvo">
+	<![CDATA[
+		select board.no, title, contents, reg_date as regDate, file_url as fileUrl,
+			   file_name as fileName, form, employees_no as employeesNo, name
+	      from board, (  select board.no, name
+						   from board, employees
+						  where board.employees_no = employees.no
+						) as b
+	     where board.no = b.no
+	       and title like concat('%',${keyword },'%')
+	  order by board.form desc, board.reg_date desc;
+		]]>
+	</select>
+	
+	
+	
+	<select id="searchByName" parameterType="String" resultType="boardvo">
+	<![CDATA[
+  		select board.no, title, contents, reg_date as regDate, file_url as fileUrl,
+			   file_name as fileName, form, employees_no as employeesNo, name
+    	  from board, ( select no, name
+					  from employees
+				     where name like concat('%',${keyword },'%')) as b
+   		 where board.employees_no = b.no
+	  order by board.form desc, board.reg_date desc;   		 
+		]]>
+	</select>
+	
+	
+	<insert id="insert" parameterType="boardvo">
+		<![CDATA[
+		insert into board (title, contents, file_url, file_name, form, employees_no ) 
+		values( ${title }, ${contents }, ${fileUrl }, ${fileName }, ${form }, 4 );
+		]]>
+	</insert>
+	
+	
+	<delete id="delete" parameterType="boardvo">
+	<![CDATA[
+  		delete from board
+   		 where board.no = ${no }
+		]]>
+	</delete>
+	
+	
+	
+	
+	
+	
+	
+	<update id="update" parameterType="positionvo">
+	<![CDATA[
+  		update position 
+     	   set position.p_name = ${pName}
+   	     where position.no = ${no}
+	]]>
+	</update>
+
+
+	<update id="updateCount" parameterType="Long">
+	<![CDATA[
+  		update board 
+     	   set count = count + 1
+   	     where no = ${no};
+	]]>
+	</update>
+
+	
+</mapper>

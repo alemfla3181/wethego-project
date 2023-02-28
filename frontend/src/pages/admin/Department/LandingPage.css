@@ -1,0 +1,41 @@
+.DepartmentLandingPage{ 
+  background-color: #f3f3f3;
+  padding-top: 10px;
+  padding-left: 15%;
+  padding-right: 5%;
+  padding-bottom: 'auto';
+  height: 800px;
+  min-height: 100%;
+}
+
+.DepartmentLandingPage > h1{
+  padding-top: 5%;
+  padding-left: 10px;
+  font-size: 40px;
+  font-weight: 800;
+}
+
+.MenuItem{
+  width: 500px;
+  min-height: 100px;
+  padding: 3% 5% 20%;
+  margin-left: 'auto';
+}
+
+.RegisterForm{
+  width: 500px;
+  min-height: 100px;
+  padding: 3%;
+  text-align: center;
+}
+
+select {
+  width:225px;
+  padding:5px;
+  border:1px solid #999;
+  font-family:'Nanumgothic';
+  border-radius:3px;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance : none;
+}

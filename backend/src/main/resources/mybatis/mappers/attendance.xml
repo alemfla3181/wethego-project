@@ -1,0 +1,359 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="attendance">
+	<select id="findAll" parameterType="map" resultType="attendancevo">
+		<choose>
+			<!-- userId, name, date 모두 없는 경우 -->
+			<when test=" userId == '' and name == '' and date == '' || userId == '' and name == '' and date == 'null' ">
+			<![CDATA[
+				select
+					*
+				from
+					attendance a, employees e
+				where
+					a.employees_no = e.no
+				order by a.no desc
+				
+				]]>
+			</when>
+
+			<!-- userId만 있는 경우 -->
+			<when test=" userId != '' and name == '' and date == 'null' ">
+			<![CDATA[
+				select
+					*
+				from
+					attendance a, employees e
+				where
+					a.employees_no = e.no
+				and e.user_id like concat('%',#{userId},'%')
+				order by a.no desc
+				
+				]]>
+			</when>
+			
+			<!-- name만 있는 경우 -->
+			<when test=" name != '' and userId == '' and date == 'null' ">
+			<![CDATA[
+				select
+					*
+				from
+					attendance a, employees e
+				where
+					a.employees_no = e.no
+				and e.name like concat('%',#{name},'%')
+				order by a.no desc
+				]]>
+			</when>
+						
+			<!-- date만 있는 경우 -->
+			<when test=" date != '' and userId == '' and name == '' ">
+			<![CDATA[
+				select
+					*
+				from
+					attendance a, employees e
+				where
+					a.employees_no = e.no
+				and a.inout_day = #{ date }
+				order by a.no desc
+				]]>
+			</when>
+			<!-- userId, date만 있는 경우 -->
+			<when test=" userId != '' and date != '' and name == '' ">
+			<![CDATA[
+				select
+					*
+				from
+					attendance a, employees e
+				where
+					a.employees_no = e.no
+				and e.user_id like concat('%',#{userId},'%')
+				and a.inout_day = #{ date }
+				order by a.no desc
+				]]>
+			</when>
+			
+			<!-- name, date만 있는 경우 -->
+			<when test=" name != '' and date != '' and userId == '' ">
+			<![CDATA[
+				select
+					*
+				from
+					attendance a, employees e
+				where
+					a.employees_no = e.no
+				and e.name like concat('%',#{name},'%')
+				and a.inout_day = #{ date }
+				order by a.no desc
+				]]>
+			</when>
+		</choose>
+	</select>
+	
+	<select id="totalCount" parameterType="map" resultType="integer">
+		<choose>
+			<!-- userId, name, date 모두 없는 경우 START -->
+			<when test="userId == '' and name == '' and date == '' || userId == '' and name == '' and date == 'null' ">
+				<![CDATA[
+				select count(*) from attendance
+				]]>				
+			</when>
+			
+			<!-- userId만 있는 경우 START -->
+			<when test=" userId != '' and name == '' and date == 'null' ">
+				<![CDATA[
+				select
+					count(*)
+				from
+					attendance a, employees e
+				where
+					a.employees_no = e.no
+				and e.user_id like concat('%',#{userId},'%')
+				]]>				
+			</when>
+			
+			<!-- name만 있는 경우 START -->
+			<when test="name != '' and userId == '' and date == 'null' ">
+				<![CDATA[
+				select
+					count(*)
+				from
+					attendance a, employees e
+				where
+					a.employees_no = e.no
+				and e.name like concat('%',#{name},'%')
+				]]>				
+			</when>
+						
+			<!-- date만 있는 경우 START -->
+			<when test="date != '' and name == '' and userId == ''">
+				<![CDATA[
+				select
+					count(*)
+				from
+					attendance a, employees e
+				where
+					a.employees_no = e.no
+				and a.inout_day = #{ date }
+				]]>				
+			</when>
+			
+			<!-- userId, date만 있는 경우 START -->
+			<when test="userId != '' and date != '' and name == ''">
+				<![CDATA[
+				select
+					count(*)
+				from
+					attendance a, employees e
+				where
+					a.employees_no = e.no
+				and e.user_id like concat('%',#{userId},'%')
+				and a.inout_day = #{ date }
+				]]>				
+			</when>
+			
+			<!-- name, date만 있는 경우 START -->
+			<when test="name != '' and date != '' and userId == ''">
+				<![CDATA[
+				select
+					count(*)
+				from
+					attendance a, employees e
+				where
+					a.employees_no = e.no
+				and e.name like concat('%',#{name},'%')
+				and a.inout_day = #{ date }
+				]]>				
+			</when>
+		</choose>	
+	</select>	
+
+	<select id="findOne" parameterType="Long"
+		resultType="attendancevo">
+	<![CDATA[
+		select * 
+		from attendance a, employees e
+		where a.employees_no = e.no 
+		and a.no = #{no}		
+	]]>
+	</select>
+	
+	<update id="update" parameterType="attendancevo">
+	<![CDATA[
+		update 
+			attendance
+		set 
+			in_time = #{ inTime },
+			out_time = #{ outTime }
+		where
+			no = #{no}
+	]]>
+	</update>
+	
+	<delete id="delete" parameterType="long">		
+		<![CDATA[
+			delete from 
+				attendance
+			where 
+				no = #{ no }
+		]]>
+	</delete>
+	
+	
+	<select id="ShowOn" parameterType="hashmap"
+		resultType="Long">
+	<![CDATA[
+		select count(*) from attendance 
+			where employees_no = #{no} 
+			and Left(inout_day,4) = #{year}
+			and substring(inout_day,6,2) = #{month}  
+			and Right(in_time,8) <= '09:05:00'		
+	]]>
+	</select>
+	
+	<select id="ShowOff" parameterType="hashmap"
+		resultType="Long">
+	<![CDATA[
+		 select count(*) from time_dimension t left join 
+		  (select * from attendance where employees_no = #{no}) a
+		 on t.db_date = a.inout_day
+		 where year = #{year}
+		 and month = #{month}
+		 and day <= #{date}
+		 and weekend_flag = 'f'
+		 and holiday_flag = 'f'
+	]]>
+	</select>
+	
+	<select id="ShowTardy" parameterType="hashmap"
+		resultType="Long">
+	<![CDATA[
+		select count(*) from attendance 
+		where employees_no = #{no} 
+		and Left(inout_day,4) = #{year}  
+		and substring(inout_day,6,2) = #{month}  
+		and Right(in_time,8) > '09:05:00'			
+	]]>
+	</select>
+	
+	<select id="ShowDayOff" parameterType="hashmap"
+		resultType="hashmap">
+	<![CDATA[
+		select v.* from vacation v, employees e
+			where v.employees_no = e.no
+			and Left(vac_start,4) = #{year}
+			and (substring(vac_start,6,2) = #{month} or substring(vac_end,6,2) =  #{month})
+			and v.v_list = '연차'
+			and e.no = #{no};
+	]]>
+	</select>	
+	
+	<select id="dateDayOff" parameterType="hashmap"
+	resultType="hashmap">
+	<![CDATA[
+		select v.* from vacation v, employees e
+			where v.employees_no = e.no
+			and Left(vac_start,4) = #{year}
+			and (substring(vac_end,6,2) = #{month} and substring(vac_end,9,2) <= #{date})
+			and v.v_list = '연차'
+			and e.no = #{no};
+	]]>
+	</select>	
+	
+	<insert id="add" parameterType="hashmap">
+	<![CDATA[
+		insert into attendance values(null,#{day},now(),null,'출근','대기',null,#{no})
+	]]>
+	</insert>
+	
+	<select id="checkToday" parameterType="hashmap" resultType="attendancevo">
+	<![CDATA[
+		select * from attendance where inout_day = #{day} and employees_no = #{no}
+	]]>
+	</select>
+
+	
+	<update id="updateOff" parameterType="hashmap">
+	<![CDATA[
+		update attendance set out_time = now() where inout_day = #{day} and employees_no = #{no}
+	]]>
+	</update>
+	
+	<!-- MainPage 현재 특이근태 변경 -->
+	<update id="updateState" parameterType="hashmap">
+	<![CDATA[
+		update attendance set state = #{state} where inout_day = #{day} and employees_no = #{no}
+	]]>
+	</update>
+	
+	<!-- MainPage 달력 주 조회 -->
+	<select id="getWeeks" resultType="hashmap" parameterType="hashmap">
+	<![CDATA[
+		select * from time_dimension t 
+			where year = #{year} 
+			and week = (select week from time_dimension where db_date = #{day})
+		]]>
+	</select>
+	
+	<!-- MainPage 팀별 근태 조회 -->
+	<select id="getTeamAtt"  parameterType="hashmap" resultType="hashmap">
+	<choose>
+		<when test=" year == null ">
+			<![CDATA[
+			select s.level, e.name, p.p_name from time_dimension t, schedule s, employees e, position p 
+					where s.employees_no = e.no
+				    and t.db_date = #{day}
+				    and  (s.level = 5 or s.level = 4)
+				    and p.no = e.position_no
+				    and t.db_date between s.start_date and s.end_date
+			]]>
+		</when>
+		<otherwise>
+			<![CDATA[
+		select a.content, a.start_date, a.end_date, a.level, a.name, a.p_name from time_dimension t right join
+						(select s.*, e.name, p.p_name from schedule s, employees e, position p
+										where s.employees_no in	(select e.no from department d, employees e 
+													where d.no = e.department_no 
+													and d.no = (select d.no from department d, employees e where d.no = e.department_no and e.no = #{no}))
+							and s.employees_no = e.no
+							and e.position_no = p.no) as a
+					on (t.db_date = a.start_date or t.db_date = a.end_date)
+                    where year = #{year}
+					and (level = 5 or level = 4)
+				    and week = (select week from time_dimension where db_date = #{day})
+				    order by  a.start_date
+			]]>
+		</otherwise>
+	</choose>
+	
+	</select>
+	
+  	<!-- 유저 Attendance 페이지 출퇴근 기록 -->
+	<select id="userfindAll" resultType="attendancevo" parameterType="hashmap">
+	<![CDATA[
+		select a.no, a.inout_day, a.in_time, a.out_time, TIMESTAMPDIFF(MINUTE, a.in_time, a.out_time) as totalTime from 
+			attendance a
+        where a.employees_no = #{no}
+		]]>
+	</select>
+	
+	<!-- 유저 Attendance 페이지 휴가 기록 -->
+	<select id="uservacationfindAll" resultType="attendancevo" parameterType="hashmap">
+	<![CDATA[
+		select no ,DATE_FORMAT(vac_start,'%Y%m%d') as vacStart, (DATE_FORMAT(vac_end,'%Y%m%d') + 1) as vacEnd , v_list from vacation
+		where employees_no = #{no}
+		and sign_state = '승인'
+		]]>
+	</select>
+	
+	<!-- 유저 Attendance 페이지 공휴일 기록 -->
+	<select id="userholidayfindAll" resultType="attendancevo" parameterType="hashmap">
+	<![CDATA[
+			select * from time_dimension where holiday_flag='t'			
+		]]>
+	</select>
+	
+
+</mapper>

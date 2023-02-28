@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="board">
+
+
+	<select id="findAll" parameterType="map" resultType="boardvo">
+	<choose>	
+		<when test="listType == '전체'">
+	<![CDATA[
+		select board.no, title, contents, reg_date as regDate, file_url as fileUrl,
+			   file_name as fileName, form, employees_no as employeesNo, name, count, d_name as dName
+	      from board, (  select board.no, name, department_no, d_name
+						   from board, employees, department
+						  where board.employees_no = employees.no
+                            and employees.department_no = department.no
+						) as b
+		 where board.no = b.no
+	  order by board.form desc, board.reg_date desc;
+		]]>
+		</when>	
+		<when test="listType != '전체'">
+	<![CDATA[
+		select board.no, title, contents, reg_date as regDate, file_url as fileUrl,
+			   file_name as fileName, form, employees_no as employeesNo, name, count, d_name as dName
+	      from board, (  select board.no, name, department_no, d_name
+						   from board, employees, department
+						  where board.employees_no = employees.no
+                            and employees.department_no = department.no	) as b
+		   			 ,(  select no
+				      	   from department
+					 	  where d_name = #{listType} ) as c
+					 , ( select a.no as eNo, p_no
+					       from employees a, department b
+					      where a.department_no = b.no) as d
+		 where board.no = b.no
+     	   and d.p_no = c.no
+     	   and d.eNo = board.employees_no
+	  order by board.form desc, board.reg_date desc;
+		]]>
+		</when>
+	</choose>
+	</select>
+	
+	
+	<select id="findDptList" resultType="departmentvo">
+	<![CDATA[
+		select d_name as dName
+		  from department
+		 where p_no = 1;
+		]]>
+	</select>
+	
+	
+	
+	<select id="searchByTitle" parameterType="String" resultType="boardvo">
+	<![CDATA[
+		select board.no, title, contents, reg_date as regDate, file_url as fileUrl,
+			   file_name as fileName, form, employees_no as employeesNo, name
+	      from board, (  select board.no, name
+						   from board, employees
+						  where board.employees_no = employees.no
+						) as b
+	     where board.no = b.no
+	       and title like concat('%',${keyword },'%')
+	  order by board.form desc, board.reg_date desc;
+		]]>
+	</select>
+	
+	
+	
+	<select id="searchByName" parameterType="String" resultType="boardvo">
+	<![CDATA[
+  		select board.no, title, contents, reg_date as regDate, file_url as fileUrl,
+			   file_name as fileName, form, employees_no as employeesNo, name
+    	  from board, ( select no, name
+					  from employees
+				     where name like concat('%',${keyword },'%')) as b
+   		 where board.employees_no = b.no
+	  order by board.form desc, board.reg_date desc;   		 
+		]]>
+	</select>
+	
+	
+	<insert id="insert" parameterType="boardvo">
+		<![CDATA[
+		insert into board (title, contents, file_url, file_name, form, employees_no ) 
+		values( #{title }, #{contents }, #{fileUrl }, #{fileName }, #{form }, #{EmployeesNo })
+		]]>
+	</insert>
+	
+	
+	<delete id="delete" parameterType="boardvo">
+	<![CDATA[
+  		delete from board
+   		 where board.no = ${no }
+		]]>
+	</delete>	
+	
+	
+	<update id="updateBoard" parameterType="boardvo">
+	<![CDATA[
+	  update board 
+	     set title= #{title },
+	         contents= #{contents },
+	         file_url= #{fileUrl },
+	         form= #{form },
+	         file_name= #{fileName }
+	   where no= #{no }
+	]]>
+	</update>
+
+
+	<update id="updateCount" parameterType="Long">
+	<![CDATA[
+  		update board 
+     	   set count = count + 1
+   	     where no = ${no};
+	]]>
+	</update>
+
+	
+	
+	<select id="getTeamBoard" parameterType="Long" resultType="hashmap" >
+		<![CDATA[
+	  		select b.title, b.reg_date, e.name from board b, employees e 
+				where b.employees_no in (select e.no from department d, employees e 
+								where d.no = e.department_no 
+								and d.no = (select d.no from department d, employees e where d.no = e.department_no and e.no = #{no})) 
+				and b.employees_no = e.no and b.form = '공지'
+				     order by b.reg_date desc 
+				     limit 5
+		]]>
+	</select>	
+</mapper>

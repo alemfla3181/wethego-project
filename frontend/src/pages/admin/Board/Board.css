@@ -1,0 +1,48 @@
+
+.boardUpper {
+
+  float: left;
+
+}
+
+#selected{
+  color: black;
+  font-size : 1rem;
+  background: white;
+  padding: 9px;
+  border: 1px solid #d3d3d3; 
+  width: 2.55rem;
+  height: 2.55rem;
+  text-align : center;
+  
+}
+
+#selectedChecked{
+
+  width: 2.55rem;
+  height: 2.55rem;
+  padding: 9px;
+  font-size : 1rem;
+  text-align : center;
+
+  background: #272a33;
+  color: white;
+  font-weight: bold;
+  cursor: revert;
+  transform: revert;
+  border: 1px solid #272a33;
+}
+
+#selectedChecked:hover{
+  border: 1px solid #272a33;
+  cursor: pointer;
+  transition: .5s;
+}
+
+#selected:hover {
+  border: 1px solid #272a33;
+  cursor: pointer;
+  transition: .5s;
+}
+
+

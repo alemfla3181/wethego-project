@@ -1,0 +1,52 @@
+.admin_sidebar {
+  /* transition: all 0.5s; */
+  width: 140px;
+  height: 100vh;
+  /* background: linear-gradient(107deg, #00a4ed 10%, #1471ef 89%); */
+  background: #003458;
+  position: fixed;
+  float: left;
+  z-index: 5;
+  color: white;
+  font-family: 'nanumsquare';
+  font-size: 13px;
+  /*  시작화면 */
+  /* transform: translateX(-100px); */
+}
+
+.admin_sidebar h3 {
+  text-align: left;
+  margin-left: 10px;
+  margin-top:10px;
+}
+
+.admin_sidebar div {
+  margin: 12px 0px 0px 12px;
+}
+
+/* .admin_sidebar:hover {
+  transform: translateX(0px);
+}
+
+.admin_sidebar i {
+  transition: all 0.5s;
+  transform: translateX(100px);
+}
+
+.admin_sidebar:hover i {
+  transform: translateX(0px);
+} */
+
+.admin_sidebar a:link {
+  text-decoration: none;
+}
+
+.admin_sidebar a {
+  color: white;
+}
+
+@media (max-width:1000px) {
+  .admin_sidebar {
+    display: none;
+  }
+}

@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="employees">
+	<select id="findAll" resultType="employeesvo">
+	<![CDATA[
+		select e.no, e.name, e.user_id, p.p_name, d.d_name 
+		from employees e, department d, position p 
+		where e.department_no = d.no 
+		and e.position_no = p.no 
+		order by e.no
+	]]>
+	</select>
+	
+	
+	<select id="findOne" parameterType="Long" resultType="employeesvo">
+	<![CDATA[
+		select *
+		from employees e, department d, position p 
+		where e.no = #{no} and 
+		e.department_no = d.no 
+		and e.position_no = p.no 
+	]]>
+	</select>
+	
+	
+	<insert id="signUp" parameterType="employeesvo">
+		<![CDATA[
+		insert 
+		 into employees(user_id,user_pw,name,join_date,h_phone,gender,birth, ext_number, department_no, position_no)
+		 values(#{userId }, #{userPw }, #{name }, #{joinDate }, #{Hphone }, #{gender }, #{birth }, #{extNumber }, #{departmentNo }, #{positionNo })
+		 ]]>
+	</insert>
+	
+	
+	<update id="resetPwd" parameterType="employeesvo">
+	<![CDATA[
+		update employees 
+		set user_pw = #{userPw } 
+		where no = #{no }
+	]]>
+	</update>
+	
+	
+	<delete id="delete" parameterType="Long">
+	<![CDATA[
+		delete 
+		from employees 
+		where no = #{no };
+	]]>
+	</delete>
+	
+	<update id="modify" parameterType="employeesvo">
+	<![CDATA[
+		update employees 
+		set name = #{name }, 
+		user_id = #{userId}, 
+		birth = #{birth }, 
+		position_no = #{positionNo }, 
+		department_no = #{departmentNo },
+		level = #{level }, 
+		state = #{state },
+		h_phone = #{hphone }, 
+		join_date = #{joinDate }, 
+		gender = #{gender }, 
+		ext_number = #{extNumber } 
+		where no = #{no }
+	]]>
+	</update>
+	
+	
+	<!-- UserPage -->	
+	<select id="findOneByUserId" parameterType="employeesvo" resultType="employeesvo">
+	<![CDATA[
+		select *
+		from employees e, department d, position p,
+		 (select d2.d_name as department from employees e, department d1, department d2 
+				where e.user_id = #{userId}
+                and e.department_no = d1.no 
+                and d1.p_no = d2.no) n
+		where e.user_id = #{userId} 
+		and e.department_no = d.no 
+		and e.position_no = p.no 
+	]]>
+	</select>
+	
+	<update id="modifyself" parameterType="employeesvo">
+		<choose>
+			<!--  password, url 모두 없음 -->
+			<when test="userPw == '' and profileUrl == '' || userPw == '' and profileUrl == null">
+			<![CDATA[
+				update employees 
+				set name = #{name }, 
+				user_id = #{userId}, 
+				birth = #{birth }, 
+				h_phone = #{hphone }, 
+				gender = #{gender }, 
+				ext_number = #{extNumber } 
+				where no = #{no }
+			]]>
+			</when>
+			
+			<!--  password 만 없음  -->
+			<when test="userPw == ''">
+			<![CDATA[
+				update employees 
+				set name = #{name }, 
+				user_id = #{userId}, 
+				birth = #{birth }, 
+				h_phone = #{hphone }, 
+				gender = #{gender }, 
+				ext_number = #{extNumber },
+				profile_url = #{profileUrl}
+				where no = #{no }
+			]]>
+			</when>
+			
+			<!--  url만 없음  -->
+			<when test="profileUrl == '' || profileUrl == null">
+			<![CDATA[
+				update employees 
+				set name = #{name }, 
+				user_id = #{userId}, 
+				user_pw = #{userPw},
+				birth = #{birth }, 
+				h_phone = #{hphone }, 
+				gender = #{gender }, 
+				ext_number = #{extNumber } 
+				where no = #{no }
+			]]>
+			</when>
+			
+			<!--  둘다 있음 -->
+			<otherwise>
+			<![CDATA[
+				update employees 
+				set name = #{name }, 
+				user_id = #{userId}, 
+				user_pw = #{userPw},
+				birth = #{birth }, 
+				h_phone = #{hphone }, 
+				gender = #{gender }, 
+				ext_number = #{extNumber },
+				profile_url = #{profileUrl}
+				where no = #{no }
+			]]>
+			</otherwise>
+		</choose>
+	</update>
+
+
+
+
+
+	<!-- 조직도 검색 -->
+	<select id="getOrganizationList" resultType="employeesvo">
+	<![CDATA[
+		select e.no as no, name, user_id as userId, user_pw as userPw, state,
+		       join_date as joinDate, resignation_date as resignationDate, 
+			   h_phone as Hphone, level, gender, disabled, birth, ext_number as extNumber,
+		       profile_url as profileUrl, department_no as departmentNo,
+		       position_no as positionNo, p_name as pName, divName as dName,
+		       depName as department
+		  from position, (select no, user_id, user_pw, employees.name, state, join_date, resignation_date, h_phone, level, gender, disabled, birth, ext_number, profile_url, department_no, position_no, depName, divName
+							from employees left join ( select b.name, a.d_name as depName, b.d_name as divName
+														 from department a 
+												   right join (  select a.name, b.p_no, b.d_name
+																   from employees a, department b
+																  where a.department_no = b.no) b
+														   on a.no = b.p_no) c
+					  		  on employees.name = c.name) e	
+ 		 where position.no = e.position_no
+ 	  order by depName, divName, pName
+	]]>
+	</select>
+	
+	<!-- SSE 메세지 카운트 -->
+	
+	<select id="getSSECount" resultType="Long">
+	<![CDATA[
+	  select sse 
+	    from employees
+	   where no = 2
+	]]>
+	</select>
+	
+
+	<update id="countUp" >
+	<![CDATA[
+		update employees set sse = sse + 1 where no = 2;
+	]]>
+	</update>
+
+	<update id="countDown" >
+	<![CDATA[
+		update employees set sse = sse - 1 where no = 2;
+	]]>
+	</update>
+
+	<select id="getCheckId" parameterType="String" resultType="Long">
+	<![CDATA[
+	 	select count(*) from employees where user_id = #{userId}
+	]]>
+	</select>
+
+</mapper>

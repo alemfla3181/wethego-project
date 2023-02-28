@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="schedule">
+<!-- 
+	<select id="findAll" parameterType="hashmap" resultType="schedulevo">
+		select no, content, start_date, (end_date + 1) as endDate, employees_no, level from schedule
+		where employees_no = #{no}
+	</select> -->
+	<select id="findAll" parameterType="hashmap" resultType="schedulevo">
+		<choose>
+			<!-- checkbox 선택 1개 일경우 -->
+			<when test= "no != '' and no != null and level1 != '' and level2 == null and level3 == null and level4 == null and level5 == null">
+				<![CDATA[
+						select no, content, start_date, (end_date + 1) as endDate, employees_no, level from schedule
+						where employees_no = #{no}
+						and level = #{level1}
+				 ]]>
+			</when>
+			<!-- checkbox 선택 2개 일경우 -->
+			<when test= "no != '' and no != null and level1 != '' and level2 != '' and level3 == null and level4 == null and level5 == null">
+				<![CDATA[
+						select no, content, start_date, (end_date + 1) as endDate, employees_no, level from schedule
+						where level = #{level1} and employees_no = #{no}
+						or level = #{level2} and employees_no = #{no}
+						
+				 ]]>
+			</when>
+			<!-- checkbox 선택 3개 일경우 -->
+			<when test= "no != '' and no != null and level1 != '' and level2 != '' and level3 != '' and level4 == null and level5 == null">
+				<![CDATA[
+						select no, content, start_date, (end_date + 1) as endDate, employees_no, level from schedule
+						where level = #{level1} and employees_no = #{no}
+						or level = #{level2} and employees_no = #{no}
+						or level = #{level3} and employees_no = #{no}
+						
+				 ]]>
+			</when>
+			<!-- checkbox 선택 4개 일경우 -->
+			<when test= "no != '' and no != null and level1 != '' and level2 != '' and level3 != '' and level4 != '' and level5 == null">
+				<![CDATA[
+						select no, content, start_date, (end_date + 1) as endDate, employees_no, level from schedule
+						where level = #{level1} and employees_no = #{no}
+						or level = #{level2} and employees_no = #{no}
+						or level = #{level3} and employees_no = #{no}
+						or level = #{level4} and employees_no = #{no}
+						
+				 ]]>
+			</when>
+			<!-- checkbox 선택 모두일 경우 -->
+			<otherwise>
+				<![CDATA[
+				select no, content, start_date, (end_date + 1) as endDate, employees_no, level from schedule
+				where employees_no = #{no}
+				 ]]>
+			</otherwise>
+
+		</choose>
+	</select>
+	
+	<insert id="addSchedule" parameterType="schedulevo">
+		<![CDATA[
+			insert 
+			 into schedule(no, content, start_date, end_date, employees_no, level)
+			 values(null, #{content}, #{startDate}, #{endDate}, #{employeesNo}, #{level})
+		 ]]>
+	</insert>
+	
+	<select id="findOne" parameterType="schedulevo" resultType="schedulevo">
+		select no, content, start_date, end_date, employees_no, level from schedule
+		where no = #{no}
+	</select>
+	
+	<update id="updateSchedule" parameterType="schedulevo">
+		<![CDATA[
+			update 
+				schedule
+			set 
+				content = #{ content },
+				start_date = #{ startDate },
+				end_date = #{ endDate },
+				level = #{level}
+			where no = #{no} 
+			and employees_no = #{ employeesNo }
+		]]>
+	</update>
+	
+	<update id="dragUpdateSchedule" parameterType="schedulevo">
+		<![CDATA[
+			update 
+				schedule
+			set 
+				start_date = #{ startDate },
+				end_date = #{ endDate }
+			where no = #{no} 
+			and employees_no = #{ employeesNo }
+		]]>
+	</update>
+	
+	<delete id="deleteSchedule" parameterType="long">
+		<![CDATA[
+			delete from 
+				schedule
+			where 
+				no = #{ no }
+		]]>
+	</delete>
+	
+	<select id="findAllHoliday" resultType="schedulevo" parameterType="hashmap">
+	<![CDATA[
+			select id, db_date, event from time_dimension where holiday_flag='t';
+		]]>
+	</select>
+	
+	<select id="findToday" resultType="schedulevo" parameterType="schedulevo">
+	<![CDATA[
+			select no, start_date, content, level as levelData
+			from schedule
+			where level = #{level} 
+			and employees_no = #{no}
+			and start_date = #{startDate} 
+			order by no desc limit 1;
+		]]>
+	</select>
+
+</mapper>

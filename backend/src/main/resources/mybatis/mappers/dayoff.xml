@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="dayoff">
+
+	<select id="findAll" parameterType="Long" resultType="dayoffvo">
+	<![CDATA[
+		select d.no, d.df_year as dfYear, d.df_total, d.df_used, d.employees_no 
+		from dayoff d, employees e 
+		where d.employees_no = e.no 
+		and e.no = #{no} 
+		order by dfYear desc
+	]]>
+	</select>
+	
+	<insert id="createDayoff" parameterType="dayoffvo">
+		<![CDATA[
+			insert into dayoff(df_year, employees_no) 
+			select year(now()), no 
+			from employees 
+			where no not in ( select employees_no from dayoff )
+		 ]]>
+	</insert>
+	
+	<select id="findvacAll" parameterType="Long" resultType="vacationvo">
+	<choose>
+		<when test="no == null">
+			<![CDATA[
+				select * 
+				from vacation 
+				order by no desc
+			]]>
+		</when>
+		<otherwise>
+			<![CDATA[
+				select v.* 
+				from vacation v, employees e 
+				where e.no = v.employees_no 
+				and e.no = #{no }
+			]]>
+		</otherwise>
+	</choose>
+	</select>
+	
+	<!-- departmentNo추가 -->
+	
+	<insert id="requestVac" parameterType="vacationvo">
+		<![CDATA[
+			insert 
+			into vacation(v_list, vac_start, vac_end, vac_reason, employees_no, department_no) 
+			values(#{vList }, #{vacStart }, #{vacEnd }, #{vacReason }, #{employeesNo }, #{departmentNo })
+		 ]]>
+	</insert>
+
+  <select id="getTeamVacation" parameterType="hashmap" resultType="vacationvo">
+	<![CDATA[
+		select v.v_list, v.vac_start, v.vac_end, e.name, p.p_name from vacation v, employees e, position p
+		where v.employees_no in (
+					select e.no from department d, employees e 
+					where d.no = e.department_no 
+					and d.no = (select d.no from department d, employees e where d.no = e.department_no and e.no = #{no}))
+			and v.employees_no = e.no
+	        and e.position_no = p.no
+			and v.sign_state = '승인'
+			and (Left(vac_start,4) = #{year} or Left(vac_end,4) = #{year})
+			and (substring(v.vac_start,6,2) = #{month} or substring(v.vac_end,6,2) = #{month})
+			order by v.vac_start
+	]]>
+	</select>
+	
+	<!-- Admin 연차 게시판 START -->
+	<select id="adminFindAll" parameterType="map" resultType="dayoffvo">
+		<choose>
+			<!-- userId, name 모두 없는 경우 -->
+			<when test=" userId == '' and name == '' || userId == '' and name == '' ">
+			<![CDATA[
+				select
+					*
+				from
+					dayoff a, employees e
+				where
+					a.employees_no = e.no
+				order by a.no desc
+				
+				]]>
+			</when>
+
+			<!-- userId만 있는 경우 -->
+			<when test=" userId != '' and name == '' ">
+			<![CDATA[
+				select
+					*
+				from
+					dayoff a, employees e
+				where
+					a.employees_no = e.no
+				and e.user_id like concat('%',#{userId},'%')
+				order by a.no desc
+				
+				]]>
+			</when>
+			
+			<!-- name만 있는 경우 -->
+			<when test=" name != '' and userId == '' ">
+			<![CDATA[
+				select
+					*
+				from
+					dayoff a, employees e
+				where
+					a.employees_no = e.no
+				and e.name like concat('%',#{name},'%')
+				order by a.no desc
+				]]>
+			</when>
+		</choose>
+	</select>
+	
+	<select id="totalCount" parameterType="map" resultType="integer">
+		<choose>
+			<!-- userId, name, date 모두 없는 경우 START -->
+			<when test="userId == '' and name == '' || userId == '' and name == '' ">
+				<![CDATA[
+				select count(*) from dayoff
+				]]>				
+			</when>
+			
+			<!-- userId만 있는 경우 START -->
+			<when test=" userId != '' and name == '' ">
+				<![CDATA[
+				select
+					count(*)
+				from
+					dayoff a, employees e
+				where
+					a.employees_no = e.no
+				and e.user_id like concat('%',#{userId},'%')
+				]]>				
+			</when>
+			
+			<!-- name만 있는 경우 START -->
+			<when test="name != '' and userId == '' ">
+				<![CDATA[
+				select
+					count(*)
+				from
+					dayoff a, employees e
+				where
+					a.employees_no = e.no
+				and e.name like concat('%',#{name},'%')
+				]]>				
+			</when>
+		</choose>	
+	</select>
+	
+	<select id="findOne" parameterType="Long" resultType="dayoffvo">
+	<![CDATA[
+		select * 
+		from dayoff a, employees e
+		where a.employees_no = e.no 
+		and a.no = #{no}	
+	]]>
+	</select>
+	
+	<update id="dayoffupdate" parameterType="hashmap">
+		<![CDATA[
+			update 
+				dayoff
+			set 
+				df_year = #{ dfYear },
+				df_total = #{ dfTotal },
+				df_used = #{ dfUsed }
+			where
+				no = #{no}
+		]]>
+	</update>
+	
+</mapper>

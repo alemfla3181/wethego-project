@@ -1,0 +1,17 @@
+.LoginPage{
+  position: relative;
+  width: 100%;
+  text-align: center;
+  margin: 0 auto;
+}
+
+.LoginPage > h1{
+  font-size: 45px;
+  height: 200px;
+  line-height: 350px;
+}
+
+.LoginPage > button{
+  width: 200px;
+  align-items: center;
+}

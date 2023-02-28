@@ -1,0 +1,24 @@
+##Mac
+**/.DS_Store
+
+##Maven
+**/target
+**/build
+**/out
+
+## STS/Eclipse IDE
+**/.settings
+**/.classpath
+**/.project
+
+## Node(JavaScript) Project
+**/node_modules
+
+## IntelliJ project files
+.idea
+*.iml
+out
+gen
+
+### 세팅 파일
+**/application.yml

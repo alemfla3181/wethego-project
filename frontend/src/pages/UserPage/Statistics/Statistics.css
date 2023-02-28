@@ -1,0 +1,49 @@
+.upper {
+  border: 1px solid #999;
+  height: 94%;
+  margin: 1%;
+  padding: 0%;
+  float: left;
+}
+
+#upper-left {
+  width: 65%;
+}
+
+#upper-right {
+  width: 31%;
+}
+
+.middle{
+  border: 1px solid #999;
+  margin: 1%;
+  
+  width: 31.3%;
+  height: 88%;
+
+  float: left;
+}
+
+.lower {
+  border: 1px solid #999;
+  margin: 1%;
+  
+  width: 80%;
+  height: 88%;
+
+  float: left;
+}
+
+.num{
+  font-size: 75px;
+  font-weight: 600;
+  font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+.select{
+  float: left;
+  margin-left: 2%;
+}
+
+
+/* <div style={{width:'100%',padding:'30%', border: '1px solid red'}}> */

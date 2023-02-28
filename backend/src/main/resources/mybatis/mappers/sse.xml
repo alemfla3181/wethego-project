@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="sse">
+	<select id="findAll" parameterType="long" resultType="ssevo">
+		<![CDATA[
+			select a.no , e.name, a.v_list 
+			from vacation a, employees e, position p
+			where a.employees_no in (select e.no from department d, employees e
+			where d.no = e.department_no
+			and d.no = (select d.no from department d, employees e where d.no = e.department_no and e.no = #{no} ))
+			and a.employees_no = e.no
+			and e.position_no = p.no
+			and a.sign_state = '대기'
+			and a.sse1 = '0'
+			]]>
+	</select>
+	
+	<update id="alarmSse" parameterType="long">
+	<![CDATA[
+		update vacation 
+		set sse1 = '1' 
+		where no = #{no}
+	]]>
+	</update>
+	
+	<select id="alarmCountSse" parameterType="long" resultType="ssevo">
+		<![CDATA[
+		select count(*) as count
+		from vacation a, employees e, position p
+		where a.employees_no in (select e.no from department d, employees e
+		where d.no = e.department_no
+		and d.no = (select d.no from department d, employees e where d.no = e.department_no and e.no = #{no} ))
+		and a.employees_no = e.no
+		and e.position_no = p.no
+		and a.sign_state = '대기'
+		and a.sse1 = '0';
+			]]>
+	</select>
+	
+	
+	
+	
+	
+	<select id="alarmCount" parameterType="long" resultType="ssevo">
+	<![CDATA[
+			select a.no , e.name, a.v_list 
+			from vacation a, employees e, position p
+			where a.employees_no in (select e.no from department d, employees e
+			where d.no = e.department_no
+			and d.no = (select d.no from department d, employees e where d.no = e.department_no and e.no = #{no} ))
+			and a.employees_no = e.no
+			and e.position_no = p.no
+			and a.sign_state = '대기'
+			and a.sse2 = '0'
+		]]>
+	</select>
+	
+	
+	<update id="alarmReset" parameterType="long">
+	<![CDATA[
+	
+	 		update vacation 
+	 		   set sse2 = 1 
+	 		 where department_no = #{no };
+		]]>
+	</update>
+	
+</mapper>

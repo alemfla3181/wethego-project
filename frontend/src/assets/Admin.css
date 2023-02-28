@@ -1,0 +1,61 @@
+.admin_wethego-h {
+    /* background: linear-gradient(107deg, #00a4ed 10%, #1471ef 89%); */
+    background: #003458;
+    color: white;
+    width: 20%;
+    border-radius: 17px;
+    text-align: center;
+}
+
+.admin_attSearch {
+    width:50%;
+    font-Size:15px;
+    margin: 0px 0px 0px 63px;
+    padding-top: 30px;
+}
+
+.admin_attSearch input {
+    width: 50%;
+    margin-left: 10px;
+    text-align: center;
+}
+
+.admin_vacCalendar input {
+    text-align: center;
+} 
+
+.admin_attContents {
+    height: 100%;
+}
+
+/* .admin_attBox_basic {
+    background: white;
+    border-radius: 10px;
+    border: outset;
+    box-shadow: 1px 1px 1px 1px dimgrey;
+    margin-bottom: 50px;
+} */
+
+.admin_attTable {
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+}
+
+.attModal_title{
+    font-size: 20px;
+
+}
+
+.attModal_button {
+    text-align: center;
+    margin-top: 35px;
+}
+
+.admin_attCalendar {
+    width: 100%;
+}
+
+.admin_attCalendar input {
+    text-align: center;
+}

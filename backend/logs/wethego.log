@@ -1,0 +1,98 @@
+19:15:29.504 [restartedMain] INFO  c.w.Application - Starting Application using Java 11.0.14 on DESKTOP-0L0663N with PID 15420 (D:\WETHEGO\backend\target\classes started by 청출어람_PC21 in D:\WETHEGO\backend)
+19:15:29.505 [restartedMain] INFO  c.w.Application - The following 1 profile is active: "production"
+19:15:29.623 [restartedMain] WARN  o.m.s.m.ClassPathMapperScanner - No MyBatis mapper was found in '[com.wethego]' package. Please check your configuration.
+19:15:29.649 [restartedMain] INFO  o.s.b.w.e.t.TomcatWebServer - Tomcat initialized with port(s): 8080 (http)
+19:15:29.650 [restartedMain] INFO  o.a.c.c.StandardService - Starting service [Tomcat]
+19:15:29.650 [restartedMain] INFO  o.a.c.c.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.58]
+19:15:29.662 [restartedMain] INFO  o.a.c.c.C.[.[.[/] - Initializing Spring embedded WebApplicationContext
+19:15:29.662 [restartedMain] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 156 ms
+19:15:29.759 [restartedMain] INFO  o.s.s.w.DefaultSecurityFilterChain - Will not secure any request
+19:15:29.781 [restartedMain] INFO  o.s.b.a.w.s.WelcomePageHandlerMapping - Adding welcome page template: index
+19:15:29.797 [restartedMain] INFO  o.s.b.d.a.OptionalLiveReloadServer - LiveReload server is running on port 35729
+19:15:29.801 [restartedMain] INFO  o.s.b.w.e.t.TomcatWebServer - Tomcat started on port(s): 8080 (http) with context path ''
+19:15:29.802 [restartedMain] INFO  c.w.Application - Started Application in 0.327 seconds (JVM running for 8714.959)
+19:15:29.803 [restartedMain] INFO  o.s.b.d.a.ConditionEvaluationDeltaLoggingListener - Condition evaluation unchanged
+19:34:30.100 [restartedMain] INFO  c.w.Application - Starting Application using Java 11.0.14 on DESKTOP-0L0663N with PID 15420 (D:\WETHEGO\backend\target\classes started by 청출어람_PC21 in D:\WETHEGO\backend)
+19:34:30.100 [restartedMain] INFO  c.w.Application - The following 1 profile is active: "production"
+19:34:30.210 [restartedMain] WARN  o.m.s.m.ClassPathMapperScanner - No MyBatis mapper was found in '[com.wethego]' package. Please check your configuration.
+19:34:30.236 [restartedMain] INFO  o.s.b.w.e.t.TomcatWebServer - Tomcat initialized with port(s): 8081 (http)
+19:34:30.236 [restartedMain] INFO  o.a.c.c.StandardService - Starting service [Tomcat]
+19:34:30.236 [restartedMain] INFO  o.a.c.c.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.58]
+19:34:30.247 [restartedMain] INFO  o.a.c.c.C.[.[.[/] - Initializing Spring embedded WebApplicationContext
+19:34:30.247 [restartedMain] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 146 ms
+19:34:30.339 [restartedMain] INFO  o.s.s.w.DefaultSecurityFilterChain - Will not secure any request
+19:34:30.359 [restartedMain] INFO  o.s.b.a.w.s.WelcomePageHandlerMapping - Adding welcome page template: index
+19:34:30.375 [restartedMain] INFO  o.s.b.d.a.OptionalLiveReloadServer - LiveReload server is running on port 35729
+19:34:30.379 [restartedMain] INFO  o.s.b.w.e.t.TomcatWebServer - Tomcat started on port(s): 8081 (http) with context path ''
+19:34:30.380 [restartedMain] INFO  c.w.Application - Started Application in 0.297 seconds (JVM running for 9855.537)
+19:34:30.381 [restartedMain] INFO  o.s.b.d.a.ConditionEvaluationDeltaLoggingListener - Condition evaluation unchanged
+23:36:02.514 [restartedMain] INFO  c.w.Application - Starting Application using Java 11.0.14 on DESKTOP-0L0663N with PID 11568 (D:\WETHEGO\backend\target\classes started by 청출어람_PC21 in D:\WETHEGO\backend)
+23:36:02.514 [restartedMain] INFO  c.w.Application - The following 1 profile is active: "production"
+23:36:02.624 [restartedMain] WARN  o.m.s.m.ClassPathMapperScanner - No MyBatis mapper was found in '[com.wethego]' package. Please check your configuration.
+23:36:02.646 [restartedMain] INFO  o.s.b.w.e.t.TomcatWebServer - Tomcat initialized with port(s): 8081 (http)
+23:36:02.647 [restartedMain] INFO  o.a.c.c.StandardService - Starting service [Tomcat]
+23:36:02.647 [restartedMain] INFO  o.a.c.c.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.58]
+23:36:02.657 [restartedMain] INFO  o.a.c.c.C.[.[.[/] - Initializing Spring embedded WebApplicationContext
+23:36:02.657 [restartedMain] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 142 ms
+23:36:02.757 [restartedMain] INFO  o.s.s.w.DefaultSecurityFilterChain - Will not secure any request
+23:36:02.776 [restartedMain] INFO  o.s.b.a.w.s.WelcomePageHandlerMapping - Adding welcome page template: index
+23:36:02.789 [restartedMain] INFO  o.s.b.d.a.OptionalLiveReloadServer - LiveReload server is running on port 35729
+23:36:02.793 [restartedMain] INFO  o.s.b.w.e.t.TomcatWebServer - Tomcat started on port(s): 8081 (http) with context path ''
+23:36:02.794 [restartedMain] INFO  c.w.Application - Started Application in 0.305 seconds (JVM running for 865.661)
+23:36:02.795 [restartedMain] INFO  o.s.b.d.a.ConditionEvaluationDeltaLoggingListener - Condition evaluation unchanged
+23:36:05.312 [restartedMain] INFO  c.w.Application - Starting Application using Java 11.0.14 on DESKTOP-0L0663N with PID 11568 (D:\WETHEGO\backend\target\classes started by 청출어람_PC21 in D:\WETHEGO\backend)
+23:36:05.312 [restartedMain] INFO  c.w.Application - The following 1 profile is active: "production"
+23:36:05.435 [restartedMain] WARN  o.m.s.m.ClassPathMapperScanner - No MyBatis mapper was found in '[com.wethego]' package. Please check your configuration.
+23:36:05.457 [restartedMain] INFO  o.s.b.w.e.t.TomcatWebServer - Tomcat initialized with port(s): 8081 (http)
+23:36:05.457 [restartedMain] INFO  o.a.c.c.StandardService - Starting service [Tomcat]
+23:36:05.457 [restartedMain] INFO  o.a.c.c.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.58]
+23:36:05.467 [restartedMain] INFO  o.a.c.c.C.[.[.[/] - Initializing Spring embedded WebApplicationContext
+23:36:05.467 [restartedMain] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 154 ms
+23:36:05.552 [restartedMain] INFO  o.s.s.w.DefaultSecurityFilterChain - Will not secure any request
+23:36:05.570 [restartedMain] INFO  o.s.b.a.w.s.WelcomePageHandlerMapping - Adding welcome page template: index
+23:36:05.585 [restartedMain] INFO  o.s.b.d.a.OptionalLiveReloadServer - LiveReload server is running on port 35729
+23:36:05.588 [restartedMain] INFO  o.s.b.w.e.t.TomcatWebServer - Tomcat started on port(s): 8081 (http) with context path ''
+23:36:05.590 [restartedMain] INFO  c.w.Application - Started Application in 0.294 seconds (JVM running for 868.456)
+23:36:05.590 [restartedMain] INFO  o.s.b.d.a.ConditionEvaluationDeltaLoggingListener - Condition evaluation unchanged
+10:43:56.214 [restartedMain] INFO  c.w.Application - Starting Application using Java 11.0.14 on DESKTOP-0L0663N with PID 6292 (D:\WETHEGO\backend\target\classes started by 청출어람_PC21 in D:\WETHEGO\backend)
+10:43:56.214 [restartedMain] INFO  c.w.Application - The following 1 profile is active: "production"
+10:43:56.398 [restartedMain] WARN  o.m.s.m.ClassPathMapperScanner - No MyBatis mapper was found in '[com.wethego]' package. Please check your configuration.
+10:43:56.427 [restartedMain] INFO  o.s.b.w.e.t.TomcatWebServer - Tomcat initialized with port(s): 8081 (http)
+10:43:56.428 [restartedMain] INFO  o.a.c.c.StandardService - Starting service [Tomcat]
+10:43:56.428 [restartedMain] INFO  o.a.c.c.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.58]
+10:43:56.441 [restartedMain] INFO  o.a.c.c.C.[.[.[/] - Initializing Spring embedded WebApplicationContext
+10:43:56.441 [restartedMain] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 224 ms
+10:43:56.547 [restartedMain] INFO  o.s.s.w.DefaultSecurityFilterChain - Will not secure any request
+10:43:56.572 [restartedMain] INFO  o.s.b.a.w.s.WelcomePageHandlerMapping - Adding welcome page template: index
+10:43:56.589 [restartedMain] INFO  o.s.b.d.a.OptionalLiveReloadServer - LiveReload server is running on port 35729
+10:43:56.595 [restartedMain] INFO  o.s.b.w.e.t.TomcatWebServer - Tomcat started on port(s): 8081 (http) with context path ''
+10:43:56.597 [restartedMain] INFO  c.w.Application - Started Application in 0.418 seconds (JVM running for 126104.93)
+10:43:56.598 [restartedMain] INFO  o.s.b.d.a.ConditionEvaluationDeltaLoggingListener - Condition evaluation unchanged
+10:44:00.115 [restartedMain] INFO  c.w.Application - Starting Application using Java 11.0.14 on DESKTOP-0L0663N with PID 6292 (D:\WETHEGO\backend\target\classes started by 청출어람_PC21 in D:\WETHEGO\backend)
+10:44:00.115 [restartedMain] INFO  c.w.Application - The following 1 profile is active: "production"
+10:44:00.237 [restartedMain] WARN  o.m.s.m.ClassPathMapperScanner - No MyBatis mapper was found in '[com.wethego]' package. Please check your configuration.
+10:44:00.260 [restartedMain] INFO  o.s.b.w.e.t.TomcatWebServer - Tomcat initialized with port(s): 8081 (http)
+10:44:00.260 [restartedMain] INFO  o.a.c.c.StandardService - Starting service [Tomcat]
+10:44:00.261 [restartedMain] INFO  o.a.c.c.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.58]
+10:44:00.272 [restartedMain] INFO  o.a.c.c.C.[.[.[/] - Initializing Spring embedded WebApplicationContext
+10:44:00.272 [restartedMain] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 156 ms
+10:44:00.369 [restartedMain] INFO  o.s.s.w.DefaultSecurityFilterChain - Will not secure any request
+10:44:00.390 [restartedMain] INFO  o.s.b.a.w.s.WelcomePageHandlerMapping - Adding welcome page template: index
+10:44:00.405 [restartedMain] INFO  o.s.b.d.a.OptionalLiveReloadServer - LiveReload server is running on port 35729
+10:44:00.409 [restartedMain] INFO  o.s.b.w.e.t.TomcatWebServer - Tomcat started on port(s): 8081 (http) with context path ''
+10:44:00.410 [restartedMain] INFO  c.w.Application - Started Application in 0.314 seconds (JVM running for 126108.744)
+10:44:00.411 [restartedMain] INFO  o.s.b.d.a.ConditionEvaluationDeltaLoggingListener - Condition evaluation unchanged
+10:44:04.935 [restartedMain] INFO  c.w.Application - Starting Application using Java 11.0.14 on DESKTOP-0L0663N with PID 6292 (D:\WETHEGO\backend\target\classes started by 청출어람_PC21 in D:\WETHEGO\backend)
+10:44:04.935 [restartedMain] INFO  c.w.Application - The following 1 profile is active: "production"
+10:44:05.052 [restartedMain] WARN  o.m.s.m.ClassPathMapperScanner - No MyBatis mapper was found in '[com.wethego]' package. Please check your configuration.
+10:44:05.076 [restartedMain] INFO  o.s.b.w.e.t.TomcatWebServer - Tomcat initialized with port(s): 8080 (http)
+10:44:05.076 [restartedMain] INFO  o.a.c.c.StandardService - Starting service [Tomcat]
+10:44:05.077 [restartedMain] INFO  o.a.c.c.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.58]
+10:44:05.086 [restartedMain] INFO  o.a.c.c.C.[.[.[/] - Initializing Spring embedded WebApplicationContext
+10:44:05.087 [restartedMain] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 151 ms
+10:44:05.181 [restartedMain] INFO  o.s.s.w.DefaultSecurityFilterChain - Will not secure any request
+10:44:05.201 [restartedMain] INFO  o.s.b.a.w.s.WelcomePageHandlerMapping - Adding welcome page template: index
+10:44:05.215 [restartedMain] INFO  o.s.b.d.a.OptionalLiveReloadServer - LiveReload server is running on port 35729
+10:44:05.219 [restartedMain] INFO  o.s.b.w.e.t.TomcatWebServer - Tomcat started on port(s): 8080 (http) with context path ''
+10:44:05.221 [restartedMain] INFO  c.w.Application - Started Application in 0.302 seconds (JVM running for 126113.554)
+10:44:05.221 [restartedMain] INFO  o.s.b.d.a.ConditionEvaluationDeltaLoggingListener - Condition evaluation unchanged

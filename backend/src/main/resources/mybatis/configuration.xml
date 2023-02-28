@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "https://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+	<settings>
+		<setting name="mapUnderscoreToCamelCase" value="true" />
+	</settings>
+
+	<typeAliases>
+		<typeAlias type="com.wethego.vo.DepartmentVo" alias="departmentvo" />
+		<typeAlias type="com.wethego.vo.EmployeesVo" alias="employeesvo" />
+		<typeAlias type="com.wethego.vo.AttendanceVo" alias="attendancevo" />
+		<typeAlias type="com.wethego.vo.PositionVo" alias="positionvo" />
+		<typeAlias type="com.wethego.vo.BoardVo" alias="boardvo" />
+		<typeAlias type="com.wethego.vo.DayoffVo" alias="dayoffvo" />
+		<typeAlias type="com.wethego.vo.VacationVo" alias="vacationvo" />
+		<typeAlias type="com.wethego.vo.ScheduleVo" alias="schedulevo" />
+		<typeAlias type="com.wethego.vo.SseVo" alias="ssevo" />
+	</typeAliases>
+
+	<mappers>
+		<mapper resource="mybatis/mappers/department.xml" />
+		<mapper resource="mybatis/mappers/employees.xml" />
+		<mapper resource="mybatis/mappers/attendance.xml" />
+		<mapper resource="mybatis/mappers/user.xml" />
+		<mapper resource="mybatis/mappers/position.xml" />
+		<mapper resource="mybatis/mappers/board.xml" />
+		<mapper resource="mybatis/mappers/dayoff.xml" />
+		<mapper resource="mybatis/mappers/vacation.xml" />
+		<mapper resource="mybatis/mappers/schedule.xml" />
+		<mapper resource="mybatis/mappers/statistics.xml" />
+		<mapper resource="mybatis/mappers/sse.xml" />
+	</mappers>
+</configuration>

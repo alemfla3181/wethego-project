@@ -1,0 +1,241 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="vacation">
+
+	<select id="findOne" parameterType="Long" resultType="vacationvo">
+	<![CDATA[
+		select v.v_list, v.vac_start, v.vac_end, v.vac_reason, v.sign_state, v.vac_isused, v.employees_no
+		from vacation v, employees e 
+		where v.employees_no = e.no 
+		and e.no = #{no}
+	]]>
+	</select>
+	
+	<delete id="delete" parameterType="Long">
+	<![CDATA[
+		delete 
+		from vacation 
+		where no = #{vNo };
+	]]>
+	</delete>
+	
+	<select id="requestlist" parameterType="Long" resultType="vacationvo">
+	<![CDATA[
+		select dnm.d_name, dnm.name, v.*
+		from vacation v, ( select e.no as eno, e.name, d.no, d.d_name
+							from department d, employees e, ( select d.p_no as dpno 
+																from department d, employees e 
+																where d.no = e.department_no 
+																and e.level = '승인' 
+																and e.no = #{no }
+																) dpn 
+							where e.department_no = d.no 
+							and d.p_no = dpn.dpno
+		                  	) dnm 
+		where v.employees_no = dnm.eno 
+		and v.sign_state = '대기';
+	]]>
+	</select>
+	
+	<update id="vacconfirm" parameterType="hashmap">
+	<![CDATA[
+		update vacation v, dayoff d 
+		set v.sign_state = '승인', v.vac_isused = 'T', d.df_used = 
+		case when v.v_list != '병가' then d.df_used + #{result } else d.df_used end 
+		where d.df_year = year(now()) 
+		and d.employees_no = v.employees_no 
+		and v.no = #{no }
+	]]>
+	</update>
+	
+	<update id="vacrefer" parameterType="hashmap">
+	<![CDATA[
+		update vacation v 
+		set v.sign_state = '반려', v.vac_isused = 'F' 
+		where v.no = #{no }
+	]]>
+	</update>
+	
+	<!--Admin 휴가 게시판 START -->
+	<select id="adminFindAll" parameterType="map" resultType="vacationvo">
+		<choose>
+			<!-- userId, name, date 모두 없는 경우 -->
+			<when test=" userId == '' and name == '' and date == '' || userId == '' and name == '' and date == 'null' ">
+			<![CDATA[
+				select
+					*
+				from
+					vacation a, employees e
+				where
+					a.employees_no = e.no
+				order by a.no desc
+				
+				]]>
+			</when>
+
+			<!-- userId만 있는 경우 -->
+			<when test=" userId != '' and name == '' and date == 'null' ">
+			<![CDATA[
+				select
+					*
+				from
+					vacation a, employees e
+				where
+					a.employees_no = e.no
+				and e.user_id like concat('%',#{userId},'%')
+				order by a.no desc
+				
+				]]>
+			</when>
+			
+			<!-- name만 있는 경우 -->
+			<when test=" name != '' and userId == '' and date == 'null' ">
+			<![CDATA[
+				select
+					*
+				from
+					vacation a, employees e
+				where
+					a.employees_no = e.no
+				and e.name like concat('%',#{name},'%')
+				order by a.no desc
+				]]>
+			</when>
+						
+			<!-- date만 있는 경우 -->
+			<when test=" date != '' and userId == '' and name == '' ">
+			<![CDATA[
+				select
+					*
+				from
+					vacation a, employees e
+				where
+					a.employees_no = e.no
+				and a.vac_start = #{ date }
+				order by a.no desc
+				]]>
+			</when>
+			<!-- userId, date만 있는 경우 -->
+			<when test=" userId != '' and date != '' and name == '' ">
+			<![CDATA[
+				select
+					*
+				from
+					vacation a, employees e
+				where
+					a.employees_no = e.no
+				and e.user_id like concat('%',#{userId},'%')
+				and a.vac_start = #{ date }
+				order by a.no desc
+				]]>
+			</when>
+			
+			<!-- name, date만 있는 경우 -->
+			<when test=" name != '' and date != '' and userId == '' ">
+			<![CDATA[
+				select
+					*
+				from
+					vacation a, employees e
+				where
+					a.employees_no = e.no
+				and e.name like concat('%',#{name},'%')
+				and a.vac_start = #{ date }
+				order by a.no desc
+				]]>
+			</when>
+		</choose>
+	</select>
+	
+	<select id="totalCount" parameterType="map" resultType="integer">
+		<choose>
+			<!-- userId, name, date 모두 없는 경우 START -->
+			<when test="userId == '' and name == '' and date == '' || userId == '' and name == '' and date == 'null' ">
+				<![CDATA[
+				select count(*) from vacation
+				]]>				
+			</when>
+			
+			<!-- userId만 있는 경우 START -->
+			<when test=" userId != '' and name == '' and date == 'null' ">
+				<![CDATA[
+				select
+					count(*)
+				from
+					vacation a, employees e
+				where
+					a.employees_no = e.no
+				and e.user_id like concat('%',#{userId},'%')
+				]]>				
+			</when>
+			
+			<!-- name만 있는 경우 START -->
+			<when test="name != '' and userId == '' and date == 'null' ">
+				<![CDATA[
+				select
+					count(*)
+				from
+					vacation a, employees e
+				where
+					a.employees_no = e.no
+				and e.name like concat('%',#{name},'%')
+				]]>				
+			</when>
+						
+			<!-- date만 있는 경우 START -->
+			<when test="date != '' and name == '' and userId == ''">
+				<![CDATA[
+				select
+					count(*)
+				from
+					vacation a, employees e
+				where
+					a.employees_no = e.no
+				and a.vac_start = #{ date }
+				]]>				
+			</when>
+			
+			<!-- userId, date만 있는 경우 START -->
+			<when test="userId != '' and date != '' and name == ''">
+				<![CDATA[
+				select
+					count(*)
+				from
+					vacation a, employees e
+				where
+					a.employees_no = e.no
+				and e.user_id like concat('%',#{userId},'%')
+				and a.vac_start = #{ date }
+				]]>				
+			</when>
+			
+			<!-- name, date만 있는 경우 START -->
+			<when test="name != '' and date != '' and userId == ''">
+				<![CDATA[
+				select
+					count(*)
+				from
+					vacation a, employees e
+				where
+					a.employees_no = e.no
+				and e.name like concat('%',#{name},'%')
+				and a.vac_start = #{ date }
+				]]>				
+			</when>
+		</choose>	
+	</select>
+	
+	<delete id="deleteVac" parameterType="long">		
+		<![CDATA[
+			delete from 
+				vacation
+			where 
+				no = #{ no }
+		]]>
+	</delete>
+	
+	
+	
+	
+</mapper>

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="position">
+
+
+	<select id="findAll" resultType="positionvo">
+	<![CDATA[
+		 select a.no, a.p_name, count(position_no) as positionCount
+		   from (position as a) 
+left outer join (employees as b) on a.no = b.position_no
+	   group by a.no;
+		]]>
+	</select>
+	
+	
+	<insert id="insert" parameterType="positionvo">
+		<![CDATA[
+		insert into position values( null, ${pName} );
+		]]>
+	</insert>
+	
+	
+	<update id="update" parameterType="positionvo">
+	<![CDATA[
+  		update position 
+     	   set position.p_name = ${pName}
+   	     where position.no = ${no}
+	]]>
+	</update>
+
+
+	<delete id="delete" parameterType="positionvo">
+	<![CDATA[
+  		delete from position
+   		 where position.p_name = ${pName}
+		]]>
+	</delete>
+
+	
+</mapper>

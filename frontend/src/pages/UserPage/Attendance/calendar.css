@@ -1,0 +1,180 @@
+/* 일요일 날짜 빨간색 */
+.fc-day a {
+  text-decoration: none;
+  color: black;
+
+}
+
+.fc-day-sun a {
+  color: red;
+  text-decoration: none;
+}
+
+/* 토요일 날짜 파란색 */
+.fc-day-sat a {
+  color: blue;
+  text-decoration: none;
+}
+
+/** 퇴근 T margin **/
+.attleavework{
+  margin-top:2px !important
+}
+/** 합계 T margin **/
+.attTotaltime {
+  margin-top:11px !important
+}
+/** event 가운데 정렬 **/
+.fc-daygrid-event {
+  /* text-align: center; */
+}
+
+/** 공휴일 색상 **/
+.holiday {
+  color: red;
+  font-weight: bold;
+}
+
+.calback {
+  background-image: url(../../../assets/images/douzone.jpg);
+  background-repeat: no-repeat;
+  background-size: 50%;
+  background-position: center center;
+  font-family: 'Noto Sans KR', sans-serif;
+  z-index: 1000000;
+}
+
+.fc-prev-button, .fc-next-button {
+  background: #1471ef !important;
+  border:lightgray 1px solid !important;
+}
+
+.fc-direction-ltr .fc-button-group > .fc-button:not(:first-child) {
+  margin-left: 3px;
+}
+
+.fc-toolbar-title {
+  /* box-shadow: 2px 2px 2px 2px dimgrey; */
+}
+
+.fc .fc-daygrid-body-unbalanced .fc-daygrid-day-events{
+  /* min-height: 8em; */
+}
+
+.planevent {
+  margin-top: 5px !important;
+  cursor: pointer;
+}
+
+.workstart {
+  margin-top: 2px !important;
+}
+
+.calbox {
+  /* background-image: url(../../../assets/images/douzone2.jpg);
+  background-repeat: no-repeat; */
+}
+
+.summarySchedule{
+  width: 10%;
+  background: white;
+  position: absolute;
+  left: 180px;
+  top: 155px;
+}
+
+.summaryScheduleTitle{
+  font-family: 'Noto Sans KR', sans-serif;
+  background: linear-gradient(107deg, #00a4ed 10%, #1471ef 89%);
+  color:white;
+  
+  height: 50px;
+}
+
+.summaryScheduleTitle h5{
+  padding-top: 12px;
+  font-weight: bolder;
+}
+
+.summaryScheduleUpTitle {
+  width:100%;
+  height:45px;
+  padding-top: 8px;
+  font-weight: bolder;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  padding:10px;
+}
+
+.fc-day-today {
+  background-color: #e9e9e9 !important;
+}
+
+@media (max-width: 1860px) {
+  .summarySchedule {
+    display: none;
+  }
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300&family=Sunflower&display=swap');
+
+
+/** 2022년 공휴일 날짜 요일 빨강으로 변경 **/
+a[aria-label |="2022년 1월 1일"] {
+  color:red;
+} 
+a[aria-label |="2022년 1월 31일"] {
+  color:red;
+} 
+a[aria-label |="2022년 2월 1일"] {
+  color:red;
+}
+a[aria-label |="2022년 2월 2일"] {
+  color:red;
+}
+a[aria-label |="2022년 3월 1일"] {
+  color:red;
+} 
+a[aria-label |="2022년 3월 9일"] {
+  color:red;
+} 
+a[aria-label |="2022년 5월 5일"] {
+  color:red;
+} 
+a[aria-label |="2022년 5월 8일"] {
+  color:red;
+} 
+a[aria-label |="2022년 6월 1일"] {
+  color:red;
+}
+a[aria-label |="2022년 6월 6일"] {
+  color:red;
+} 
+a[aria-label |="2022년 8월 15일"] {
+  color:red;
+} 
+a[aria-label |="2022년 9월 9일"] {
+  color:red;
+}
+a[aria-label |="2022년 9월 10일"] {
+  color:red;
+} 
+a[aria-label |="2022년 9월 11일"] {
+  color:red;
+} 
+a[aria-label |="2022년 9월 12일"] {
+  color:red;
+} 
+a[aria-label |="2022년 10월 3일"] {
+  color:red;
+} 
+a[aria-label |="2022년 10월 9일"] {
+  color:red;
+} 
+a[aria-label |="2022년 10월 10일"] {
+  color:red;
+} 
+a[aria-label |="2022년 12월 25일"] {
+  color:red;
+} 
