@@ -43,7 +43,10 @@ const IndexAttendanceBox = () => {
   if (DayOff) {
     let num = 0;
     DayOff.map(e => {
-      num += dayjs(e.vac_end).diff(dayjs(e.vac_start), 'day') + 1;
+      if (e.v_list != '반차')
+        num += dayjs(e.vac_end).diff(dayjs(e.vac_start), 'day') + 1;
+      else
+        num += 0.5;
     })
     if (OnOff && OnOff.length === 3)
       setOnOff([...OnOff, num]);
@@ -52,7 +55,10 @@ const IndexAttendanceBox = () => {
   if (dateDayOff) {
     let num = 0;
     dateDayOff.map(e => {
-      num += dayjs(e.vac_end).diff(dayjs(e.vac_start), 'day') + 1;
+      if (e.v_list != '반차')
+        num += dayjs(e.vac_end).diff(dayjs(e.vac_start), 'day') + 1;
+      else
+        num += 0.5;
     })
     if (OnOff && OnOff.length === 4)
       setOnOff([...OnOff, num]);

@@ -245,7 +245,7 @@
 			where v.employees_no = e.no
 			and Left(vac_start,4) = #{year}
 			and (substring(vac_start,6,2) = #{month} or substring(vac_end,6,2) =  #{month})
-			and v.v_list = '연차'
+			and v.sign_state = '승인'
 			and e.no = #{no};
 	]]>
 	</select>	
@@ -257,7 +257,7 @@
 			where v.employees_no = e.no
 			and Left(vac_start,4) = #{year}
 			and (substring(vac_end,6,2) = #{month} and substring(vac_end,9,2) <= #{date})
-			and v.v_list = '연차'
+			and v.sign_state = '승인'
 			and e.no = #{no};
 	]]>
 	</select>	
